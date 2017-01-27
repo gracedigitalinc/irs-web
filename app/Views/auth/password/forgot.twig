@@ -1,0 +1,20 @@
+{% extends 'auth/auth.twig' %}
+
+{% block content %}
+<!-- BEGIN FORGOT PASSWORD FORM -->
+<form class="forget-form" action="{{ path_for('auth.password.forgot') }}" method="post" autocomplete="off">
+    <div class="form-title">
+        <span class="form-title">Forget Password ?</span>
+        <span class="form-subtitle">Enter your e-mail to reset it.</span>
+    </div>
+    <div class="form-group">
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" name="email" id="email" placeholder="you@domain.com" /> 
+        {{ csrf.field | raw }}
+    </div>
+    <div class="form-actions">
+        <a href="{{ path_for('auth.signin') }}" class="btn btn-default" id="register-back-btn">Back</a>
+        <button type="submit" class="btn btn-primary uppercase pull-right">Submit</button>
+    </div>
+</form>
+<!-- END FORGOT PASSWORD FORM -->
+{% endblock %}

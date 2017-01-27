@@ -1,0 +1,276 @@
+{% extends 'templates/app.twig' %}
+
+{% block styles %}
+    <link href="../assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />  
+    <link href="http://parsleyjs.org/src/parsley.css" rel="stylesheet" type="text/css" />  
+{% endblock %}
+
+{% block content %}
+    <div class="page-content-fixed-header">
+        <!-- BEGIN BREADCRUMBS -->
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="#">Stations</a>
+            </li>
+            <!-- <li>Admin Dashboard</li> -->
+        </ul>
+        <!-- END BREADCRUMBS -->
+        {% include '/templates/partials/headermenu.twig' %}
+    </div>
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
+        {% include '/templates/navigation/station-create.twig' %}
+        <!-- END SIDEBAR -->
+    </div>
+    <div class="page-fixed-main-content">
+        
+        <!-- BEGIN PAGE BASE CONTENT -->
+
+        <!-- BEGIN CREATE FORM -->
+        <div class="row" id="station-add">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-dark"></i>
+                            <span class="caption-subject font-dark sbold uppercase">Add Station</span>
+                        </div>
+                        <div class="actions">
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="horizontal-form" id="frm-station-edit" data-src="ajax" data-route="stations/update">
+                            <input type="hidden" name="id">
+                            <div class="form-alert"></div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label">Station Name
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <input type="text" name="name" class="form-control" required>
+                                </div>                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Stream
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <input type="text" name="stream" class="form-control" required data-parsley-type='url'>
+                                        </div>
+                                    </div>                                
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Site</label>
+                                            <input type="text" name="site" class="form-control" data-parsley-type='url'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Logo</label>
+                                            <input type="text" name="logo" class="form-control" data-parsley-type='url'>
+                                        </div>
+                                    </div>                                
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <input type="text" name="description" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/row-->                        
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Bitrate</label>
+                                            <input type="text" name="bitrate" class="form-control" data-parsley-type='number'>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Status</label>
+                                            <select class="form-control" name="status" data-placeholder="Is the station active...">
+                                                <option></option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Codec</label>
+                                            <select class="form-control" name="codec" data-placeholder="Choose and encoding format...">
+                                                <option></option>
+                                                <option value="AAC">AAC</option>
+                                                <option value="MP3">MP3</option>
+                                                <option value="OGG">OGG</option>
+                                                <option value="Real">Real</option>
+                                                <option value="Unknown">Unknown</option>
+                                                <option value="WMA">WMA</option>
+                                            </select>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Genre
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <select class="form-control select2-multiple" name="genre" multiple required data-placeholder="Choose one ore more genres...">
+                                                <option></option>
+                                                {% for genre in genres %}
+                                                    <option value="{{ genre.id }}" >{{ genre.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="hidden" name="oldgenre">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Location
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <select class="form-control" name="location" required data-placeholder="Choose a location...">
+                                                <option></option>
+                                                {% for continentId, continent in locations %}
+                                                    <optgroup label="{{continent['continent']}}">
+                                                        {% for countryId, country in continent['countries'] %}
+                                                            <option value="{{ country['id'] }}">{{ country['name'] }}</option>
+                                                        {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="hidden" name="oldlocation">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                            </div>
+                            <div class="form-actions" style="border-top: 1px solid #eef1f5;">
+                                <div class="btn-set pull-right">
+                                    <button type="button" class="btn default" id="btn-cancel">Clear</button>
+                                    <button type="button" class="btn green-jungle" id="btn-save"><i class="fa fa-save"></i> Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END CREATE FORM -->
+
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+{% endblock %}
+
+{% block plugins %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/parsley.js/2.5.1/parsley.min.js" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0/jquery.dirtyforms.min.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block scripts %}
+    <script src="../assets/global/scripts/formhelper.js" type="text/javascript"></script>
+    <script src="../assets/global/scripts/formhandler.js" type="text/javascript"></script>    
+    <script>
+        $(function() {
+
+            // Save the record
+            $('#btn-save').on('click', function() {
+                
+                // Clear form alerts
+                $('.form-alert .close').click();
+
+                var form = $(this).closest("form");
+                if (form.parsley().isValid()) {
+
+                    // Get form field values
+                    var values = [];
+                    $('input, select', form).each(function() {
+                        if($(this).val()) {
+                            let prop = $(this).prop('name') + '=' + $(this).val();
+                            values.push(prop);
+                        }
+                    });
+
+                    // Get URL
+                    var uri = App.getAPIHost() + '/stations';
+                    var data = values.join('&');
+
+                    $.ajax({
+                        url: uri, 
+                        data: data,
+                        method: 'POST'
+                    })
+                    .done(function(response) {
+                        
+                        console.log(response);
+
+                        if(response.error) {
+                            App.alert({
+                                type: 'danger', 
+                                container: '.form-alert', 
+                                message: response.error.message,
+                            });
+                        }
+                        else {
+                            clearForm();
+                            App.alert({
+                                type: 'success', 
+                                icon: 'smile-o',
+                                message: 'Record successfully created', 
+                                container: '.form-alert'
+                            });
+                        }
+                    })
+                    .fail(function(response) {
+                        console.log("Server Error: " + response.status + " " + response.statusText);
+                    });  
+                    
+                } else {
+                    form.parsley().validate();
+                    App.alert({
+                        type: 'danger', 
+                        container: '.form-alert',
+                        message: 'One or more fields contains errors'
+                    });
+                }
+
+            });
+
+            // Clear the search fields
+            $('#btn-cancel').on('click', function(){
+                clearForm();
+                $('button.close').click();
+            });
+
+            // Initalize select2 controls
+            $('select').select2({
+                allowClear: true, 
+                width: null
+            });            
+
+            // Initalize dirty form
+            $(document).bind('dirty.dirtyforms', function(event) { 
+                var form = $(event.target).closest('form');
+                var disabled = !form.dirtyForms('isDirty');
+                $('#btn-save').prop('disabled', disabled);
+            });
+
+            function clearForm() {
+                $('input').each(function() {
+                    $(this).val('');
+                });
+                $('select').each(function() {
+                    $(this).val('').trigger('change');
+                });                
+                $('input[type="text"]:first').focus();
+            }
+        })
+    </script>       
+{% endblock %}

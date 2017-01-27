@@ -1,0 +1,54 @@
+<!-- BEGIN HEADER -->
+<header class="page-header">
+    <nav class="navbar" role="navigation">
+        <div class="container-fluid">
+            <div class="havbar-header">
+                <!-- BEGIN LOGO -->
+                <a id="index" class="navbar-brand" href="/">
+                    <img src="../assets/layouts/layout6/img/gd-logo-150x32.png" alt="Logo">
+                </a>
+                <!-- END LOGO -->
+                <!-- BEGIN TOPBAR ACTIONS -->
+                <span class="navbar-app">
+                    Internet Radio Station Manager
+                </span>
+                <div class="topbar-actions">
+                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                    <!--<form class="search-form" action="{{ path_for('') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search here" name="query">
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn md-skip submit">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form>-->
+                    <!-- END HEADER SEARCH BOX -->
+                    
+                    <!-- BEGIN USER PROFILE -->
+                    <div class="btn-group-img btn-group">
+                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <img src="../assets/layouts/layout6/img/support-agent.png" alt=""> </button>
+                        <ul class="dropdown-menu-v2" role="menu">
+                            <li>
+                                <a href="page_user_profile_1.html">
+                                    <i class="icon-user"></i> My Profile
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path_for('auth.signout') }}">
+                                    <i class="icon-key"></i> Log Out </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END USER PROFILE -->
+                </div>
+                <!-- END TOPBAR ACTIONS -->
+            </div>
+        </div>
+        <!--/container-->
+    </nav>
+</header>
+<!-- END HEADER -->

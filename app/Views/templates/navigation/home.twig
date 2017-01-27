@@ -1,0 +1,62 @@
+<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+        <li class="nav-item start open active">
+            <a href="{{ path_for('home') }}" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">Home</span>
+                <span class="selected"></span>
+                {# <span class="arrow <optgroup></optgroup>en"></span> #}
+            </a>
+            <!-- <ul class="sub-menu">
+                <li class="nav-item start">
+                    <a href="{{ path_for('home') }}" class="nav-link">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">Dashboard</span>
+                        <span class=""></span>
+                    </a>
+                </li>
+            </ul> -->
+        </li>
+        <li class="heading">
+            <h3 class="uppercase">Internet Radio</h3>
+        </li>        
+        {% if auth.admin %}
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="icon-layers"></i>
+                <span class="title">Stations</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item">
+                    <a href="{{ path_for('station.search') }}" class="nav-link ">
+                        <i class="icon-magnifier"></i>
+                        <span class="title">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path_for('station.create') }}" class="nav-link ">
+                        <i class="icon-plus"></i>
+                        <span class="title">Create</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path_for('station.update') }}" class="nav-link ">
+                        <i class="icon-wrench"></i>
+                        <span class="title">Edit</span>
+                    </a>
+                </li>
+            </ul> 
+        </li>   
+        {% else %}
+        <li class="nav-item">
+            <a href="{{ path_for('auth.signin') }}" class="nav-link">
+                <i class="icon-question"></i>
+                <span class="title">You are a mere user</span>
+            </a>
+        </li>              
+        {% endif %}     
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>
