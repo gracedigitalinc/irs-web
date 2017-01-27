@@ -1,0 +1,58 @@
+{% extends 'templates/app.twig' %}
+
+{% block styles %}
+    <link href="../assets/pages/css/search.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <div class="page-content-fixed-header">
+        <!-- BEGIN BREADCRUMBS -->
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+        </ul>
+        <!-- END BREADCRUMBS -->
+        {% include '/templates/partials/headermenu.twig' %}
+    </div>
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
+        {% include '/templates/navigation/home.twig' %}
+        <!-- END SIDEBAR -->
+    </div>
+    <div class="page-fixed-main-content">
+        <!-- BEGIN PAGE BASE CONTENT -->
+
+        <div class="row">
+            <div class="col-md-12 page-500">
+                <div class=" number font-red"> 500 </div>
+                <div class=" details">
+                    <h3>Oops! Something went wrong.</h3>
+                    <p> We are fixing it! Please come back in a while.<br/>
+                        <p class="col-md-8-left"><pre>{{message}}</pre></p>
+                    </p>
+                    <p>
+                        <a href="index.html" class="btn red btn-outline"> Return home </a>
+                        <br> </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+{% endblock %}
+
+{% block plugins %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+<script>
+
+// resize to 100%;
+// .page-content: height:100%;
+
+</script>

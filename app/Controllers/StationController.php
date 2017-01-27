@@ -2,24 +2,14 @@
 
 namespace App\Controllers;
 
-use GuzzleHttp\Client as Client;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\ConnectException;
 
 class StationController extends Controller
 {
-    protected $client;
-
-    public function __construct($container) 
-    {
-        parent::__construct($container);
-        $this->client = new Client([
-            'base_uri' => getenv('API_HOST'),
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-    }
+    // public function __construct($container) 
+    // {
+    //     parent::__construct($container);
+    // }
 
     public function create($request, $response)
     {
@@ -36,6 +26,13 @@ class StationController extends Controller
 
     public function index($request, $response)
     {
+        try {
+            $this->checkServerConnection();
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            return $this->view->render($response, '500a.twig', array('message'=>$e->getMessage()));
+            // return $this->view->render($response, 'templates/500b.twig', array('message'=>$e->getMessage()));
+        }         
+
         $result = $this->client->get('genres');
         $body = json_decode($result->getBody(), true);
         $data['genres'] = $body['genres'];
