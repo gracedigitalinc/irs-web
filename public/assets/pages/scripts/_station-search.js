@@ -126,59 +126,57 @@ $(function() {
     });
 
     // Save the record
-    $('#btn-save').on('click', function() {
+    // $('#btn-save').on('click', function() {
+    //     var form = $(this).closest("form");
+    //     if (form.parsley().isValid()) {
 
-        var form = $(this).closest("form");
-        if (form.parsley().isValid()) {
+    //         // Get form field values
+    //         var values = [];
+    //         $('input, select', form).each(function() {
+    //             if($(this).val()) {
+    //                 let prop = $(this).prop('name') + '=' + $(this).val();
+    //                 values.push(prop);
+    //             }
+    //         });
 
-            // Get form field values
-            var values = [];
-            $('input, select', form).each(function() {
-                if($(this).val()) {
-                    let prop = $(this).prop('name') + '=' + $(this).val();
-                    values.push(prop);
-                }
-            });
+    //         // Get URL
+    //         var uri = App.getAPIHost() + '/stations/' + $('[name=id]', form).val();
 
-            // Get URL
-            var uri = App.getAPIHost() + '/stations/' + $('[name=id]', form).val();
+    //         $.ajax({
+    //             url: uri,
+    //             method: 'POST',
+    //             data: values.join('&'),
+    //             contentType: 'application/json'})
+    //         .done(function(response) {
+    //             if(response.error) {
+    //                 App.alert({
+    //                     type: 'danger',
+    //                     container: '.form-alert',
+    //                     message: response.error.message,
+    //                 });
+    //             }
+    //             else {
+    //                 App.alert({
+    //                     type: 'success',
+    //                     icon: 'smile-o',
+    //                     message: 'Record successfully updated',
+    //                     container: '.form-alert'
+    //                 });
+    //             }
+    //         })
+    //         .fail(function(response) {
+    //             console.log("Server Error: " + response.status + " " + response.statusText);
+    //         });
 
-            $.ajax({
-                url: uri,
-                method: 'POST',
-                data: values.join('&'),
-                contentType: 'application/json'})
-            .done(function(response) {
-                if(response.error) {
-                    App.alert({
-                        type: 'danger',
-                        container: '.form-alert',
-                        message: response.error.message,
-                    });
-                }
-                else {
-                    App.alert({
-                        type: 'success',
-                        icon: 'smile-o',
-                        message: 'Record successfully updated',
-                        container: '.form-alert'
-                    });
-                }
-            })
-            .fail(function(response) {
-                console.log("Server Error: " + response.status + " " + response.statusText);
-            });
-
-        } else {
-            form.parsley().validate();
-            App.alert({
-                type: 'danger',
-                container: '.form-alert',
-                message: 'One or more fields contains errors'
-            });
-        }
-
-    });
+    //     } else {
+    //         form.parsley().validate();
+    //         App.alert({
+    //             type: 'danger',
+    //             container: '.form-alert',
+    //             message: 'One or more fields contains errors'
+    //         });
+    //     }
+    // });
 
 
     /*
@@ -191,19 +189,20 @@ $(function() {
         $('button.close').click();
 
         var qs = [];
-
         $('input:visible, select:visible', '#frm-search').each(function(){
             if($(this).val()) {
                 qs.push($(this).attr('name') + '=' + getSearchValue($(this).val()));
             }
         });
-
+console.log(qs);
+// return false;
         App.blockUI();
 
-        var uri = App.getAPIHost() + '/stations?cache=false&';
+        var uri = App.getAPIHost() + '/stations?';
 
         $.getJSON(uri + qs.join('&'), function(data) {
-            // console.log(data);
+            console.log(data);
+
             if(data.count > 0) {
                 loadTable(data);
             } else {

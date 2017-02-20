@@ -91,8 +91,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <select class="form-control" name="status" data-placeholder="Is the station active...">
+                                            <label class="control-label">Status
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <select class="form-control" name="status" required data-placeholder="Is the station active...">
                                                 <option></option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
@@ -121,7 +123,7 @@
                                             <label class="control-label">Genre
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
-                                            <select class="form-control select2-multiple" name="genre" multiple required data-placeholder="Choose one ore more genres...">
+                                            <select class="form-control select2-multiple" name="gids" multiple required data-placeholder="Choose one ore more genres...">
                                                 <option></option>
                                                 {% for genre in genres %}
                                                     <option value="{{ genre.id }}" >{{ genre.name }}</option>
@@ -135,7 +137,7 @@
                                             <label class="control-label">Location
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
-                                            <select class="form-control" name="location" required data-placeholder="Choose a location...">
+                                            <select class="form-control" name="lid" required data-placeholder="Choose a location...">
                                                 <option></option>
                                                 {% for continentId, continent in locations %}
                                                     <optgroup label="{{continent['continent']}}">
@@ -189,28 +191,26 @@
                 var form = $(this).closest("form");
                 if (form.parsley().isValid()) {
 
-                    // Get form field values
+                    // var values = {};
                     var values = [];
-                    $('input, select', form).each(function() {
-                        if($(this).val()) {
-                            let prop = $(this).prop('name') + '=' + $(this).val();
-                            values.push(prop);
-                        }
-                    });
+                    $('input:not(:hidden), select', form).each(function() {
+                      if($(this).val()) {
+                          values.push($(this).prop('name')+'='+$.trim($(this).val()));
+                      }
+                    });   
 
                     // Get URL
-                    var uri = App.getAPIHost() + '/stations';
-                    var data = values.join('&');
+                    var qs = values.join("&");
+                    var url = App.getAPIHost() + '/stations?' + qs;
 
                     $.ajax({
-                        url: uri, 
-                        data: data,
-                        method: 'POST'
+                      url: url,
+                      method: 'POST',
+                      dataType: 'json',
+                      contentType: 'application/json'
                     })
                     .done(function(response) {
                         
-                        console.log(response);
-
                         if(response.error) {
                             App.alert({
                                 type: 'danger', 
@@ -228,8 +228,10 @@
                             });
                         }
                     })
-                    .fail(function(response) {
-                        console.log("Server Error: " + response.status + " " + response.statusText);
+                    .fail(function(qXHR, textStatus) {
+                        console.log(textStatus);
+                        console.log(qXHR);
+                        console.log("An Error Occurred: " + textStatus);
                     });  
                     
                 } else {
@@ -263,6 +265,7 @@
             });
 
             function clearForm() {
+                $('form').parsley().reset();
                 $('input').each(function() {
                     $(this).val('');
                 });

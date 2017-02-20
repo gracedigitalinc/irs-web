@@ -3,8 +3,8 @@ Core script to handle the entire theme and core functions
 **/
 var App = function() {
 
-    // var apiHost = 'http://10.0.144.190:8080/v1';
-    var apiHost = 'http://192.168.86.111:8080/v1';
+    var apiHost = 'http://10.0.144.190:8080/v1';
+    // var apiHost = 'http://192.168.86.154:8080/v1';
     
     $.ajaxSetup({
       headers : {

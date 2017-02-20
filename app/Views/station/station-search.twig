@@ -146,10 +146,11 @@
                                             <div class="form-group">
                                                 <label class="control-label">Location</label>
                                                 <select class="form-control" name="location" data-placeholder="Choose one or more locations...">
+                                                <option></option>
                                                 {% for continentId, continent in locations %}
                                                     <optgroup label="{{continent['continent']}}">
                                                         {% for countryId, country in continent['countries'] %}
-                                                            <option id="{{ country['id'] }}" value="{{ country['name'] }}">{{ country['name'] }}</option>
+                                                            <option value="{{ country['id'] }}">{{ country['name'] }}</option>
                                                         {% endfor %}
                                                     </optgroup>
                                                 {% endfor %}
