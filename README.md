@@ -1,7 +1,7 @@
 # irs-web
 
 ```
-echo $this->isSomeCode();
+<strong>echo $this->isSomeCode();</strong>
 ```
 This is more text...
 
