@@ -344,7 +344,7 @@ You can view your current Menus by clicking on the *Tools->Menu Builder* button.
 
 When you are ready to add menu items to your menu you can click on the builder button of the corresponding menu:
 
-![Voyager Menus](./assets/mages/menu-01.jpg)
+![Voyager Menus](./assets/images/menu-01.jpg)
 
 This will take you to the Menu Builder where you can add, edit, and delete menu items.
 
